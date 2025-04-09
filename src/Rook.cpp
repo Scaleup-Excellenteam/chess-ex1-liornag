@@ -1,35 +1,38 @@
 #include "Rook.h"
 #include "Board.h"
 
+// Constructor: sets the piece's symbol ('R' for white, 'r' for black)
+Rook::Rook(char symbol) : symbol(symbol) {}
 
-Rook::Rook(char symbol) : symbol(symbol) {}  // שומר את הסמל ('R' או 'r')
-
+// Returns the piece's symbol
 char Rook::getSymbol() const {
     return symbol;
 }
 
+// Checks if a rook move is legal
 bool Rook::isMoveLegal(int fromX, int fromY, int toX, int toY, const Board& board) const {
-    // בדיקה אם נשארים באותה שורה או באותה עמודה
+     // Rooks move only in straight lines (horizontal or vertical)
     if (fromX != toX && fromY != toY) {
-        return false; // לא תנועה ישרה
+        return false; // Not a straight-line move → illegal
     }
 
-    // בדיקה אם יש כלים בדרך – נלך צעד צעד ונבדוק
-    int stepX = (toX > fromX) ? 1 : (toX < fromX ? -1 : 0);
-    int stepY = (toY > fromY) ? 1 : (toY < fromY ? -1 : 0);
+    // Determine step direction (row and column)
+    int stepX = (toX > fromX) ? 1 : (toX < fromX ? -1 : 0); // 1, -1, or 0
+    int stepY = (toY > fromY) ? 1 : (toY < fromY ? -1 : 0); // 1, -1, or 0
 
     int x = fromX + stepX;
     int y = fromY + stepY;
 
+    // Check all squares between source and destination
     while (x != toX || y != toY) {
         if (board.getPiece(x, y) != nullptr) {
-            return false; // יש כלי בדרך
+            return false; // There's a piece blocking the path
         }
         x += stepX;
         y += stepY;
     }
 
-    // מותר לאכול כלי יריב או לזוז למשבצת ריקה
+    // At destination: it's legal if the square is empty or has an opponent's piece
     Piece* dest = board.getPiece(toX, toY);
-    return dest == nullptr || dest->getSymbol() != this->getSymbol(); // בהנחה שכלים לבנים ואותיות שונות
+    return dest == nullptr || dest->getSymbol() != this->getSymbol();
 }
