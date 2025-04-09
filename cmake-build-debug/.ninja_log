@@ -1,0 +1,14 @@
+# ninja log v6
+1347	2056	1744180339153452600	homework_chess.exe	8d666bac631b10ae
+42	965	1744127939704566900	CMakeFiles/homework_chess.dir/src/Chess.cpp.o	8a52bc9492708843
+21	1139	1744180337828100000	CMakeFiles/homework_chess.dir/src/main.cpp.o	ef293f83e0e6c72a
+6	361	1744180788142039300	build.ninja	bc9b3b1baee919ba
+47	840	1744180337853371300	CMakeFiles/homework_chess.dir/src/Rook.cpp.o	d9e744bc1feb73e0
+71	1347	1744180337877211800	CMakeFiles/homework_chess.dir/src/Board.cpp.o	77e129234a020b2d
+96	950	1744180337902886700	CMakeFiles/homework_chess.dir/src/King.cpp.o	5bd8f3577a880382
+71	719	1744181009887374000	CMakeFiles/homework_chess.dir/src/Bishop.cpp.o	99f1d4d851c84c4c
+23	888	1744181009840557000	CMakeFiles/homework_chess.dir/src/main.cpp.o	ef293f83e0e6c72a
+50	1128	1744181009866872900	CMakeFiles/homework_chess.dir/src/Board.cpp.o	77e129234a020b2d
+1128	1825	1744181010943944600	homework_chess.exe	a0950b30acebcdd7
+21	680	1744181509355809100	CMakeFiles/homework_chess.dir/src/main.cpp.o	ef293f83e0e6c72a
+681	1301	1744181510014974700	homework_chess.exe	a0950b30acebcdd7

@@ -1,0 +1,3 @@
+/cygdrive/c/Users/liorn/תוכנית אקסלנטים/cpp/homework-chess/cmake-build-debug/CMakeFiles/homework_chess.dir
+/cygdrive/c/Users/liorn/תוכנית אקסלנטים/cpp/homework-chess/cmake-build-debug/CMakeFiles/edit_cache.dir
+/cygdrive/c/Users/liorn/תוכנית אקסלנטים/cpp/homework-chess/cmake-build-debug/CMakeFiles/rebuild_cache.dir
