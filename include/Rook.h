@@ -5,14 +5,17 @@
 #pragma once
 #include "Piece.h"
 
+// The Rook class represents a rook chess piece.
+// It inherits from the abstract base class Piece.
 class Rook : public Piece {
 private:
-    char symbol;  // כאן נשמור את 'R' או 'r'
+    char symbol;  // Stores the piece symbol ('R' for white, 'r' for black)
+
 
 public:
-    Rook(char symbol);  // ← זה הבנאי שצריך
-    char getSymbol() const override;
-    bool isMoveLegal(int fromX, int fromY, int toX, int toY, const Board& board) const override;
+    Rook(char symbol);  // Constructor: initializes the rook with its symbol
+    char getSymbol() const override;  // Returns the symbol of the piece ('R' or 'r')
+    bool isMoveLegal(int fromX, int fromY, int toX, int toY, const Board& board) const override;  // Checks whether the rook's move is legal (horizontal or vertical only)
 };
 
 #endif //ROOK_H
