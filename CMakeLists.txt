@@ -12,6 +12,7 @@ add_executable(homework_chess
         src/Board.cpp
         src/King.cpp
         src/Bishop.cpp
+        src/Queen.cpp
 )
 
 target_include_directories(homework_chess PRIVATE include)

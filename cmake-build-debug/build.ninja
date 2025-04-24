@@ -91,6 +91,13 @@ build CMakeFiles/homework_chess.dir/src/Bishop.cpp.o: CXX_COMPILER__homework_che
   OBJECT_DIR = CMakeFiles/homework_chess.dir
   OBJECT_FILE_DIR = CMakeFiles/homework_chess.dir/src
 
+build CMakeFiles/homework_chess.dir/src/Queen.cpp.o: CXX_COMPILER__homework_chess_unscanned_Debug /cygdrive/c/Users/liorn/תוכנית$ אקסלנטים/cpp/homework-chess/src/Queen.cpp || cmake_object_order_depends_target_homework_chess
+  DEP_FILE = CMakeFiles/homework_chess.dir/src/Queen.cpp.o.d
+  FLAGS = -g -std=gnu++1z -fdiagnostics-color=always
+  INCLUDES = -I"/cygdrive/c/Users/liorn/תוכנית אקסלנטים/cpp/homework-chess/include"
+  OBJECT_DIR = CMakeFiles/homework_chess.dir
+  OBJECT_FILE_DIR = CMakeFiles/homework_chess.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target homework_chess
@@ -99,7 +106,7 @@ build CMakeFiles/homework_chess.dir/src/Bishop.cpp.o: CXX_COMPILER__homework_che
 #############################################
 # Link the executable homework_chess.exe
 
-build homework_chess.exe: CXX_EXECUTABLE_LINKER__homework_chess_Debug CMakeFiles/homework_chess.dir/src/main.cpp.o CMakeFiles/homework_chess.dir/src/Chess.cpp.o CMakeFiles/homework_chess.dir/src/Rook.cpp.o CMakeFiles/homework_chess.dir/src/Board.cpp.o CMakeFiles/homework_chess.dir/src/King.cpp.o CMakeFiles/homework_chess.dir/src/Bishop.cpp.o
+build homework_chess.exe: CXX_EXECUTABLE_LINKER__homework_chess_Debug CMakeFiles/homework_chess.dir/src/main.cpp.o CMakeFiles/homework_chess.dir/src/Chess.cpp.o CMakeFiles/homework_chess.dir/src/Rook.cpp.o CMakeFiles/homework_chess.dir/src/Board.cpp.o CMakeFiles/homework_chess.dir/src/King.cpp.o CMakeFiles/homework_chess.dir/src/Bishop.cpp.o CMakeFiles/homework_chess.dir/src/Queen.cpp.o
   FLAGS = -g
   LINK_FLAGS = -Wl,--enable-auto-import
   OBJECT_DIR = CMakeFiles/homework_chess.dir
