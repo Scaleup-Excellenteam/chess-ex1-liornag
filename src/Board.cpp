@@ -2,10 +2,16 @@
 
 #include <iostream>
 
+
 #include "Rook.h"
 #include "King.h"
 #include "Bishop.h"
 #include "Queen.h"
+#include "Knight.h"
+#include "Pawn.h"
+#include "PriorityQueue.h"
+#include "Move.h"
+#include "Utils.h"
 
 // Constructor: builds the board from a 64-character layout string
 Board::Board(const std::string& layout) {
@@ -37,6 +43,14 @@ Board::Board(const std::string& layout) {
             break;
             case 'q': board[row][col] = std::make_shared<Queen>('q');
             break;
+            case 'N': board[row][col] = std::make_shared<Knight>('N');
+                break;
+            case 'n': board[row][col] = std::make_shared<Knight>('n');
+                break;
+            case 'P': board[row][col] = std::make_shared<Pawn>('P');
+                break;
+            case 'p': board[row][col] = std::make_shared<Pawn>('p');
+                break;
 
             default:
                 board[row][col] = nullptr; // Empty square or unsupported piece
@@ -48,13 +62,13 @@ Board::Board(const std::string& layout) {
 Piece* Board::getPiece(int x, int y) const {
     if (x < 0 || x >= 8 || y < 0 || y >= 8)
         return nullptr;  // Out of bounds
-    return board[x][y].get();
+    return board[y][x].get();
 }
 
 // Moves a piece from (fromX, fromY) to (toX, toY)
 void Board::movePiece(int fromX, int fromY, int toX, int toY) {
-    board[toX][toY] = board[fromX][fromY];   // Move the piece
-    board[fromX][fromY] = nullptr;           // Empty the source square
+    board[toY][toX] = board[fromY][fromX];   // Move the piece
+    board[fromY][fromX] = nullptr;           // Empty the source square
 }
 
 // Checks if the king of the given player is currently in check
@@ -81,7 +95,7 @@ bool Board::isInCheck(bool isWhite) const {
     for (int x = 0; x < 8; ++x) {
         for (int y = 0; y < 8; ++y) {
             Piece* p = getPiece(x, y);
-            if (p && isupper(p->getSymbol()) != isWhite) { // Opponent's piece
+            if (p && !isSameColor(isWhite, p)) { // Opponent's piece
                 if (p->isMoveLegal(x, y, kingX, kingY, *this)) {
                     return true; // Enemy piece can attack the king → check
                 }
@@ -90,4 +104,105 @@ bool Board::isInCheck(bool isWhite) const {
     }
 
     return false; // No threats found → not in check
+}
+
+bool Board::isSameColor(bool isWhite, Piece* p) const {
+    if (isupper(p->getSymbol()) && isWhite) {
+        return true;
+    }
+    if (!isupper(p->getSymbol()) && !isWhite) {
+        return true;
+    }
+    return false;
+}
+
+std::string Board::getBestMoves(bool isWhite, int movesAmount) const
+{
+    PriorityQueue<std::shared_ptr<Move>> queue;
+    for (int x = 0; x < BOARD_SIZE; ++x) {
+        for (int y = 0; y < BOARD_SIZE; ++y) {
+            Piece* p = getPiece(x, y);
+            if (p && isSameColor(isWhite, p)) {
+                vector<std::shared_ptr<Move>> legalMoves;
+                p->fillLegalMoves(x, y, legalMoves, *this);
+                fillScores(legalMoves, isWhite);
+                for(std::shared_ptr<Move> move : legalMoves)
+                {
+                    queue.push(move);
+                }
+            }
+        }
+    }
+    std::string bestMoves;
+    int movesNumber = Utils::min(movesAmount, int(queue.size()));
+    for (int i = 0; i < movesNumber; i++) {
+        if (!queue.isEmpty()) {
+            std::shared_ptr<Move> move = queue.poll();
+            bestMoves += move->getWalk();
+            if (i < movesNumber - 1) {
+                bestMoves += ",";
+            }
+        }
+    }
+    return bestMoves;
+}
+
+bool Board::isInDangerByWeakerPiece(std::shared_ptr<Move> move, bool isWhite) const {
+    Piece* piece = getPiece(move->getFromX(), move->getFromY());
+    // just in case
+    if (piece == nullptr) {
+        return false;
+    }
+    for (int x = 0; x < BOARD_SIZE; ++x) {
+        for (int y = 0; y < BOARD_SIZE; ++y) {
+            Piece* p = getPiece(x, y);
+            if (p && !isSameColor(isWhite, p) &&
+                p->isThreatening(x, x, move->getToX(), move->getToY(), *this) &&
+                (p->getValue() < piece->getValue())) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Board::isThreateningOnStrongerPiece(std::shared_ptr<Move> move, bool isWhite) const {
+    Piece* piece = getPiece(move->getFromX(), move->getFromY());
+    // just in case
+    if (piece == nullptr) {
+        return false;
+    }
+    for (int x = 0; x < BOARD_SIZE; ++x) {
+        for (int y = 0; y < BOARD_SIZE; ++y) {
+            Piece* p = getPiece(x, y);
+            if (p && !isSameColor(isWhite, p) &&
+                piece->isThreatening(move->getToX(), move->getToY(), x, y, *this) &&
+                (p->getValue() > piece->getValue())) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Board::willEat(std::shared_ptr<Move> move) const {
+    Piece* p1 = getPiece(move->getFromX(), move->getFromY());
+    Piece* p2 = getPiece(move->getToX(), move->getToY());
+    return (p1 != nullptr) && (p2 != nullptr) && (isupper(p1->getSymbol()) != isupper(p2->getSymbol()));
+}
+
+void Board::fillScores(std::vector<std::shared_ptr<Move>>& legalMoves, bool isWhite) const {
+    for (std::shared_ptr<Move> move : legalMoves)
+    {
+        move->setScore(10);
+        if (isInDangerByWeakerPiece(move, isWhite)) {
+            move->increadeScore(-2);
+        }
+        if (isThreateningOnStrongerPiece(move, isWhite)) {
+            move->increadeScore(2);
+        }
+        if (willEat(move)) {
+            move->increadeScore(2);
+        }
+    }
 }

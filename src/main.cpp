@@ -1,25 +1,42 @@
 // Chess
-#include "../include/Chess.h"
+#include "Chess.h"
 #include "Board.h"
 #include <iostream>
-using namespace std;
+
+
+
+
+//void debugPrintBoard(const Board& board) {
+//    std::cout << "\n=== Debug: Board State ===\n";
+//    for (int x = 0; x < 8; ++x) {  // x = row
+//        for (int y = 0; y < 8; ++y) {  // y = column
+//            char rowChar = 'A' + x;
+//            char colChar = '1' + y;
+//            Piece* piece = board.getPiece(x, y);
+//            std::cout << rowChar << colChar << ": ";
+//            if (piece) {
+//                std::cout << piece->getSymbol();
+//            } else {
+//                std::cout << "empty";
+//            }
+//            std::cout << "\n";
+//        }
+//    }
+//    std::cout << "===========================\n";
+//}
 
 int main()
 {
-    std::string boardStr = "###########################q#######R#######K####################";
-    //string boardStr = "RNBQKBNRPPPPPPPP################################pppppppprnbqkbnr";
+    //std::string boardStr = "###########################q#######R#######K####################";
+    string boardStr = "RNBQKBNRPPPPPPPP################################pppppppprnbqkbnr";
     //string boardStr = "##########K###############################R#############r#r#####";
-    Chess a(boardStr);
-
-
-
-
     Board board(boardStr);
+    Chess a(board, boardStr);
+
     int codeResponse = 0;
     int currentPlayer = 1;
+    a.setCurrentPlayer(currentPlayer);
     string res = a.getInput();
-
-
 
    while (res != "exit")
     {
@@ -29,15 +46,17 @@ int main()
             codeResponse = 21; // Invalid move format, must be exactly 4 characters
         } else {
             // Convert chess notation (e.g. "e2") to board coordinates
-            int fromX = move[0] - 'a'; // Column: 'a'-'h' → 0-7
-            int fromY = move[1] - '1'; // Row: '1'-'8' → 0-7 (bottom to top)
-            int toX   = move[2] - 'a';
-            int toY   = move[3] - '1';
+            int fromY = move[0] - 'a'; // Column: 'a'-'h' → 0-7
+            int fromX = move[1] - '1'; // Row: '1'-'8' → 0-7 (bottom to top)
+            int toY   = move[2] - 'a';
+            int toX   = move[3] - '1';
 
             // Debug print to show the move and coordinates
             cout << "DEBUG: move = " << move << endl;
             cout << "DEBUG: fromX = " << fromX << ", fromY = " << fromY << endl;
             cout << "DEBUG: toX   = " << toX << ", toY   = " << toY << endl;
+
+            //debugPrintBoard(board);
 
             // Get the piece from the source square
             Piece* piece = board.getPiece(fromX, fromY);
@@ -77,6 +96,7 @@ int main()
                         board.movePiece(fromX, fromY, toX, toY);
                         codeResponse = 42;  // Move successful
                         currentPlayer = (currentPlayer == 1) ? 2 : 1; // Switch turn
+                        a.setCurrentPlayer(currentPlayer);
                     }
                 }
             }
@@ -84,7 +104,12 @@ int main()
 
         a.setCodeResponse(codeResponse);
         res = a.getInput();
+
+
+
     }
+
+
 
     cout << endl << "Exiting " << endl;
     return 0;

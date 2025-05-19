@@ -1,5 +1,6 @@
 #include "Bishop.h"
 #include "Board.h"
+#include "Move.h"
 #include <cmath> // For std::abs (absolute value)
 
 // Constructor: stores the symbol of the piece ('B' for white, 'b' for black)
@@ -42,3 +43,33 @@ bool Bishop::isMoveLegal(int fromX, int fromY, int toX, int toY, const Board& bo
     // The pieces are from opposite players if their symbol cases differ (upper vs. lower)
 }
 
+void Bishop::fillLegalMoves(int fromX, int fromY, std::vector<std::shared_ptr<Move>>& legalMoves, const Board& board) const {
+    for (int i = 1; i < fromX; i++) {
+        if ((fromY - i > 0) && isMoveLegal(fromX, fromY, fromX - i, fromY - i, board)) {
+            legalMoves.push_back(std::make_shared<Move>(fromX, fromY, fromX - i, fromY - i));
+        }
+        if ((fromY + i < BOARD_SIZE) && isMoveLegal(fromX, fromY, fromX - i, fromY + i, board)) {
+            legalMoves.push_back(std::make_shared<Move>(fromX, fromY, fromX - i, fromY + i));
+        }
+    }
+    for (int i = 1; i < BOARD_SIZE - fromX; i++) {
+        if ((fromY - i > 0) && isMoveLegal(fromX, fromY, fromX + i, fromY - i, board)) {
+            legalMoves.push_back(std::make_shared<Move>(fromX, fromY, fromX + i, fromY - i));
+        }
+        if ((fromY + i < BOARD_SIZE) && isMoveLegal(fromX, fromY, fromX + i, fromY + i, board)) {
+            legalMoves.push_back(std::make_shared<Move>(fromX, fromY, fromX + i, fromY + i));
+        }
+    }
+}
+
+int Bishop::getValue() const {
+    return 3;
+}
+
+bool Bishop::isThreatening(int fromX, int fromY, int toX, int toY, const Board& board) const {
+    int dx = toX - fromX; // Change in row
+    int dy = toY - fromY; // Change in column
+
+    // Bishop can only move diagonally → absolute dx must equal absolute dy
+    return std::abs(dx) == std::abs(dy);
+}
