@@ -18,6 +18,9 @@ public:
     char getSymbol() const override;
     // Checks whether a move is legal for a bishop (diagonal movement only)
     bool isMoveLegal(int fromX, int fromY, int toX, int toY, const Board& board) const override;
+    virtual void fillLegalMoves(int fromX, int fromY, std::vector<std::shared_ptr<Move>>& legalMoves, const Board& board) const override;
+    virtual bool isThreatening(int fromX, int fromY, int toX, int toY, const Board& board) const;
+    virtual int getValue() const;
 };
 
 #endif //BISHOP_H

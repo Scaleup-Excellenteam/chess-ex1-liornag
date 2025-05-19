@@ -1,5 +1,6 @@
 #include "Rook.h"
 #include "Board.h"
+#include "Move.h"
 
 // Constructor: sets the piece's symbol ('R' for white, 'r' for black)
 Rook::Rook(char symbol) : symbol(symbol) {}
@@ -11,7 +12,7 @@ char Rook::getSymbol() const {
 
 // Checks if a rook move is legal
 bool Rook::isMoveLegal(int fromX, int fromY, int toX, int toY, const Board& board) const {
-     // Rooks move only in straight lines (horizontal or vertical)
+    // Rooks move only in straight lines (horizontal or vertical)
     if (fromX != toX && fromY != toY) {
         return false; // Not a straight-line move → illegal
     }
@@ -34,5 +35,29 @@ bool Rook::isMoveLegal(int fromX, int fromY, int toX, int toY, const Board& boar
 
     // At destination: it's legal if the square is empty or has an opponent's piece
     Piece* dest = board.getPiece(toX, toY);
-    return dest == nullptr || dest->getSymbol() != this->getSymbol();
+    return (dest == nullptr) || (std::isupper(dest->getSymbol()) != std::isupper(this->getSymbol()));
+}
+
+void Rook::fillLegalMoves(int fromX, int fromY, std::vector<std::shared_ptr<Move>>& legalMoves, const Board& board) const {
+    for (int i = 0; i < fromX; i++) {
+        if (isMoveLegal(fromX, fromY, i, fromY, board)) {
+            legalMoves.push_back(std::make_shared<Move>(fromX, fromY, i, fromY));
+        }
+    }
+    for (int i = fromX + 1; i < BOARD_SIZE; i++) {
+        if (isMoveLegal(fromX, fromY, i, fromY, board)) {
+            legalMoves.push_back(std::make_shared<Move>(fromX, fromY, i, fromY));
+        }
+    }
+}
+
+int Rook::getValue() const {
+    return 5;
+}
+
+bool Rook::isThreatening(int fromX, int fromY, int toX, int toY, const Board& board) const {
+    int dx = std::abs(toX - fromX); // Change in row
+    int dy = toY - fromY; // Change in column
+
+    return (dy == 0) && (dx > 0);
 }

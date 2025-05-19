@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess/cmake-build-debug"
+			"value" : "/cygdrive/c/Users/liorn/Excellenteam/cpp/homework-chess/chess/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "4"
+			"value" : "6"
 		},
 		{
 			"name" : "CMAKE_COLOR_DIAGNOSTICS",
@@ -559,7 +559,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/cygdrive/c/Users/liorn/Excellenteam/cpp/homework-chess/chess/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -619,7 +619,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess"
+			"value" : "/cygdrive/c/Users/liorn/Excellenteam/cpp/homework-chess/chess"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -999,7 +999,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/cygdrive/c/Users/liorn/AppData/Local/JetBrains/CLion2025.1/cygwin_cmake/share/cmake-3.31.4"
+			"value" : "/cygdrive/c/Users/liorn/AppData/Local/JetBrains/CLion2025.1/cygwin_cmake/share/cmake-3.31.6"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1254,42 +1254,6 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "Chess_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess/cmake-build-debug"
-		},
-		{
-			"name" : "Chess_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "Chess_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess"
-		},
-		{
 			"name" : "_CMAKE_CXX_LINKER_PUSHPOP_STATE_SUPPORTED",
 			"properties" : 
 			[
@@ -1326,78 +1290,6 @@
 			"value" : "TRUE"
 		},
 		{
-			"name" : "chess_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess/cmake-build-debug"
-		},
-		{
-			"name" : "chess_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "chess_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess"
-		},
-		{
-			"name" : "homework-chess_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess/cmake-build-debug"
-		},
-		{
-			"name" : "homework-chess_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "homework-chess_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess"
-		},
-		{
 			"name" : "homework_chess_BINARY_DIR",
 			"properties" : 
 			[
@@ -1407,7 +1299,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess/cmake-build-debug"
+			"value" : "/cygdrive/c/Users/liorn/Excellenteam/cpp/homework-chess/chess/cmake-build-debug"
 		},
 		{
 			"name" : "homework_chess_IS_TOP_LEVEL",
@@ -1431,7 +1323,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/cygdrive/c/Users/liorn/\u05ea\u05d5\u05db\u05e0\u05d9\u05ea \u05d0\u05e7\u05e1\u05dc\u05e0\u05d8\u05d9\u05dd/cpp/homework-chess"
+			"value" : "/cygdrive/c/Users/liorn/Excellenteam/cpp/homework-chess/chess"
 		}
 	],
 	"kind" : "cache",

@@ -15,6 +15,9 @@ public:
     Queen(char symbol); // Constructor: initializes the queen with its symbol
     char getSymbol() const override;  // Returns the piece's symbol (used to determine type and color)
     bool isMoveLegal(int fromX, int fromY, int toX, int toY, const Board& board) const override; // Checks whether a move is legal for a queen (combines rook + bishop movement)
+    virtual void fillLegalMoves(int fromX, int fromY, std::vector<std::shared_ptr<Move>>& legalMoves, const Board& board) const override;
+    virtual bool isThreatening(int fromX, int fromY, int toX, int toY, const Board& board) const;
+    virtual int getValue() const;
 };
 
 
