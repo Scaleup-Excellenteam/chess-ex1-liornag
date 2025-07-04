@@ -12,6 +12,7 @@ using std::endl;
 using std::string;
 
 const int _SIZE = 21;
+const int _AUTOMATIC_GAME_MOVES_NUMBER = 8;
 
 class Board;
 
@@ -43,7 +44,8 @@ public:
     Chess(Board& board, const string& start = "RNBQKBNRPPPPPPPP################################pppppppprnbqkbnr");
     Chess(const Chess&)=delete;
     Chess& operator=(const Chess&) = delete;
-    string getInput();
+    string getInput(int movesAmount, int threadsAmount);
     void setCodeResponse(int codeResponse);
     void setCurrentPlayer(int currentPlayer);
+    void runAutomaticGame(int movesAmount, int threadsAmount, int totalMovesNumber = _AUTOMATIC_GAME_MOVES_NUMBER);
 };

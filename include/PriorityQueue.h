@@ -2,8 +2,7 @@
 
 #include <list>
 #include <stdexcept>
-
-
+#include <mutex>
 
 template<typename T>
 struct MyComparator {
@@ -18,12 +17,15 @@ private:
     std::list<T> elements;
     MyComparator<T> comparator;
     size_t _maxSize;
+    // Mutex to synchronize access to shared data
+    std::mutex priorityQueueMutex;
 
 public:
-    PriorityQueue(size_t maxSize = 5) : _maxSize(maxSize) {
+    PriorityQueue(size_t maxSize = 25) : _maxSize(maxSize) {
     }
 
     void push(const T& value) {
+        std::unique_lock<std::mutex> lock(priorityQueueMutex);
         auto it = elements.begin();
         for (; it != elements.end(); ++it) {
             if (comparator(value, *it) > 0) {
@@ -40,6 +42,7 @@ public:
 
 
     T poll() {
+        std::unique_lock<std::mutex> lock(priorityQueueMutex);
         if (elements.empty())
             throw std::runtime_error("Priority queue is empty");
 
@@ -59,6 +62,7 @@ public:
     }
 
     const T &peek() const {
+        std::unique_lock<std::mutex> lock(priorityQueueMutex);
         if (elements.empty()) {
             throw std::runtime_error("Priority queue is empty");
         }

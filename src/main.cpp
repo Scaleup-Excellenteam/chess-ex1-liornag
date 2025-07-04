@@ -2,8 +2,7 @@
 #include "Chess.h"
 #include "Board.h"
 #include <iostream>
-
-
+#include <chrono>
 
 
 //void debugPrintBoard(const Board& board) {
@@ -36,9 +35,27 @@ int main()
     int codeResponse = 0;
     int currentPlayer = 1;
     a.setCurrentPlayer(currentPlayer);
-    string res = a.getInput();
+    int movesAmount, threadsAmount = 8, autoGame;
+    cout << "Enter moves amount: ";
+    cin >> movesAmount;
+    cout << "Automatic game ? (0 - No, 1 = Yes): ";
+    cin >> autoGame;
+    // run automatic game
+    if (autoGame)
+    {
+        // take the time on start
+        auto start = std::chrono::system_clock::now();
+        a.runAutomaticGame(movesAmount, threadsAmount);
+        // take the time on end
+        auto end = std::chrono::system_clock::now();
+        // calculate the elapsed time in microseconds and print it
+        auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+        cout << "For " << threadsAmount << " threads, it took: " << elapsed.count() << " microseconds" << endl;
+        return 0;
+    }
+    string res = a.getInput(movesAmount, threadsAmount);
 
-   while (res != "exit")
+    while (res != "exit")
     {
        string move = res;  // Save the input move string (e.g. "e2e4")
 
@@ -103,13 +120,8 @@ int main()
         }
 
         a.setCodeResponse(codeResponse);
-        res = a.getInput();
-
-
-
+        res = a.getInput(movesAmount, threadsAmount);
     }
-
-
 
     cout << endl << "Exiting " << endl;
     return 0;

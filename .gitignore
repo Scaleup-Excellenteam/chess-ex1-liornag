@@ -24,4 +24,4 @@
 *.bak
 
 # Ignore temporary image cache
-img/cache/
+img/cache/"cmake-build-debug/" 
