@@ -21,5 +21,5 @@ public:
     Piece* getPiece(int x, int y) const; // Returns a raw pointer to the piece at (x, y), or nullptr if empty
     void movePiece(int fromX, int fromY, int toX, int toY); // Moves a piece from (fromX, fromY) to (toX, toY)
     bool isInCheck(bool isWhite) const; // Checks whether the given player (white = true, black = false) is currently in check
-    std::string getBestMoves(bool isWhite, int movesAmount = 3) const;
+    std::string getBestMoves(bool isWhite, int movesAmount, int threadsAmount) const;
 };

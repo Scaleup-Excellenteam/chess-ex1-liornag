@@ -12,6 +12,7 @@
 #include "PriorityQueue.h"
 #include "Move.h"
 #include "Utils.h"
+#include "ThreadPool.h"
 
 // Constructor: builds the board from a 64-character layout string
 Board::Board(const std::string& layout) {
@@ -116,19 +117,25 @@ bool Board::isSameColor(bool isWhite, Piece* p) const {
     return false;
 }
 
-std::string Board::getBestMoves(bool isWhite, int movesAmount) const
+std::string Board::getBestMoves(bool isWhite, int movesAmount, int threadsAmount) const
 {
     PriorityQueue<std::shared_ptr<Move>> queue;
-    for (int x = 0; x < BOARD_SIZE; ++x) {
-        for (int y = 0; y < BOARD_SIZE; ++y) {
-            Piece* p = getPiece(x, y);
-            if (p && isSameColor(isWhite, p)) {
-                vector<std::shared_ptr<Move>> legalMoves;
-                p->fillLegalMoves(x, y, legalMoves, *this);
-                fillScores(legalMoves, isWhite);
-                for(std::shared_ptr<Move> move : legalMoves)
-                {
-                    queue.push(move);
+    // open the block so the destructor of the ThreadPool will wait for the threads to finish (join)
+    {
+        ThreadPool threadPool(threadsAmount);
+        for (int x = 0; x < BOARD_SIZE; ++x) {
+            for (int y = 0; y < BOARD_SIZE; ++y) {
+                Piece* p = getPiece(x, y);
+                if (p && isSameColor(isWhite, p)) {
+                    threadPool.enqueue([x, y, this, isWhite, &queue, p] {
+                        vector<std::shared_ptr<Move>> legalMoves;
+                        p->fillLegalMoves(x, y, legalMoves, *this);
+                        fillScores(legalMoves, isWhite);
+                        for (std::shared_ptr<Move> move : legalMoves)
+                        {
+                            queue.push(move);
+                        }
+                        });
                 }
             }
         }

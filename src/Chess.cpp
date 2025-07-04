@@ -285,8 +285,41 @@ void Chess::setCurrentPlayer(int currentPlayer) {
 	this->currentPlayer = currentPlayer;
 }
 
+void Chess::runAutomaticGame(int movesAmount, int threadsAmount, int totalMovesNumber)
+{
+	for (int i = 0; i < totalMovesNumber; i++)
+	{
+		bestMoves = board.getBestMoves(currentPlayer == 1, movesAmount, threadsAmount);
+		if (bestMoves.size() < 4)
+		{
+			continue;
+		}
+		size_t index = bestMoves.find(',');
+		// take always the first possible move
+		string move;
+		if (index > 0)
+		{
+			move = bestMoves.substr(0, index);
+		}
+		else
+		{
+			move = bestMoves;
+		}
+		if (move.size() != 4)
+		{
+			continue;
+		}
+		int fromY = move[0] - 'a'; // Column: 'a'-'h' → 0-7
+		int fromX = move[1] - '1'; // Row: '1'-'8' → 0-7 (bottom to top)
+		int toY = move[2] - 'a';
+		int toX = move[3] - '1';
+		board.movePiece(fromX, fromY, toX, toY);
+		currentPlayer = (currentPlayer == 1) ? 2 : 1; // Switch turn
+	}
+}
+
 // get the source and destination
-string Chess::getInput()
+string Chess::getInput(int movesAmount, int threadsAmount)
 {
 	static bool isFirst = true;
 
@@ -295,7 +328,7 @@ string Chess::getInput()
 	else
 		doTurn();
 
-	bestMoves = board.getBestMoves(currentPlayer == 1);
+	bestMoves = board.getBestMoves(currentPlayer == 1, movesAmount, threadsAmount);
 	displayBoard();
 	showAskInput();
 
